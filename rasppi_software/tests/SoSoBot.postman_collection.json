@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "d61796dd-9b0a-47f3-8cc5-8b69eccb3153",
+		"name": "SoSoBot",
+		"description": "Collection for testing the server software running on the SoSoBot's Rasppi.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Right ON",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/right?on=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"right"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "1"
+						}
+					]
+				},
+				"description": "turn the RIGHT motor of the SoSoBot ON"
+			},
+			"response": []
+		},
+		{
+			"name": "Right OFF",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/right?on=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"right"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "0"
+						}
+					]
+				},
+				"description": "turn the RIGHT motor of the SoSoBot OFF"
+			},
+			"response": []
+		},
+		{
+			"name": "Left ON",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/left?on=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"left"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "1"
+						}
+					]
+				},
+				"description": "turn the LEFT motor of the SoSoBot ON"
+			},
+			"response": []
+		},
+		{
+			"name": "Left OFF",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/left?on=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"left"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "0"
+						}
+					]
+				},
+				"description": "turn the LEFT motor of the SoSoBot OFF"
+			},
+			"response": []
+		},
+		{
+			"name": "Both ON",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/both?on=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"both"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "1"
+						}
+					]
+				},
+				"description": "turn BOTH motors of the SoSoBot ON"
+			},
+			"response": []
+		},
+		{
+			"name": "Both OFF",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/both?on=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"both"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "0"
+						}
+					]
+				},
+				"description": "turn BOTH motors of the SoSoBot OFF"
+			},
+			"response": []
+		},
+		{
+			"name": "Error: wrong direction",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/all?on=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"all"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "0"
+						}
+					]
+				},
+				"description": "wrong URL: no valid value for <string: direction>"
+			},
+			"response": []
+		},
+		{
+			"name": "Error: no parameter",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/right",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"right"
+					]
+				},
+				"description": "wrong URL: parameter ON / OFF missing"
+			},
+			"response": []
+		},
+		{
+			"name": "Error: wrong parameter",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/motor/right?on=5",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"motor",
+						"right"
+					],
+					"query": [
+						{
+							"key": "on",
+							"value": "5"
+						}
+					]
+				},
+				"description": "wrong URL: parameter ON / OFF has a non-valid value"
+			},
+			"response": []
+		}
+	]
+}
