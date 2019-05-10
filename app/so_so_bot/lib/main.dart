@@ -70,28 +70,31 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Row(
-          // Row is a widget that displays its children in a horizontal array.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              // Expanded is a widget that expands a child of a Row, Column, or
-              // Flex so that the child fills the available space.
-              child: RaisedButton(
-                onPressed: onLeftPressed,
-                child: Text("Left"),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8, right:8),
+          child: Row(
+            // Row is a widget that displays its children in a horizontal array.
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                // Expanded is a widget that expands a child of a Row, Column, or
+                // Flex so that the child fills the available space.
+                child: RaisedButton(
+                  onPressed: onLeftPressed,
+                  child: Text("Left"),
+                ),
+                flex: 2,
               ),
-              flex: 2,
-            ),
-            Spacer(flex: 1,),
-            Expanded(
-              child: RaisedButton(
-                onPressed: onRightPressed,
-                child: Text("Right"),
+              Spacer(flex: 1,),
+              Expanded(
+                child: RaisedButton(
+                  onPressed: onRightPressed,
+                  child: Text("Right"),
+                ),
+                flex: 2,
               ),
-              flex: 2,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
