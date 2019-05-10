@@ -15,7 +15,7 @@ class Motor(Resource):
             motor_status = None
         if direction == 'right':
             if motor_status == '1':
-                motor_right.start()
+                motor_right.forward()
                 return {"message": "RIGHT motor turned ON"}, 200
             elif motor_status == '0':
                 motor_right.stop()
@@ -24,7 +24,7 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'left':
             if motor_status == '1':
-                motor_left.start()
+                motor_left.forward()
                 return {"message": "LEFT motor turned ON"}, 200
             elif motor_status == '0':
                 motor_left.stop()
@@ -33,8 +33,8 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'both':
             if motor_status == '1':
-                motor_right.start()
-                motor_left.start()
+                motor_right.forward()
+                motor_left.forward()
                 return {"message": "BOTH motors turned ON"}, 200
             elif motor_status == '0':
                 motor_right.stop()
