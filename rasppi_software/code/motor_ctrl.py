@@ -11,10 +11,10 @@ import RPi.GPIO as GPIO
 #***************************************************************
 
 # GPIO-Pins
-MOTOR_RIGHT_FORWARD = 37
-MOTOR_RIGHT_BACKWARD = 37
-MOTOR_LEFT_FORWARD = 40
-MOTOR_LEFT_BACKWARD	= 40
+MOTOR_RIGHT_FORWARD = 2
+MOTOR_RIGHT_BACKWARD = 3
+MOTOR_LEFT_FORWARD = 17
+MOTOR_LEFT_BACKWARD	= 27
 
 
 #***************************************************************
@@ -26,7 +26,6 @@ GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
-
 
 
 #***************************************************************
@@ -45,7 +44,7 @@ class MotorCtrl:
         self.pin_forward = gpio_pin_forward
         self.pin_backward = gpio_pin_backward
         self.name = name
-        self.on  = True
+        self.on  = False
 
     # Starts the motor in forward direction
     def forward(self):
@@ -62,7 +61,7 @@ class MotorCtrl:
         GPIO.output(self.pin_backward, 1)
         self.on  = True
 
-    # Starts the motor
+    # Stops the motor
     def stop(self)
         print('Motor:= ; stopped', self.name)
         GPIO.output(self.pin_forward, 0)
@@ -78,4 +77,4 @@ class MotorCtrl:
 #	Objects
 #***************************************************************
 motor_right = motor_ctrl.MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_LEFT_BACKWARD, 'Right')
-motor_left = motor_ctrl.MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
+motor_left  = motor_ctrl.MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
