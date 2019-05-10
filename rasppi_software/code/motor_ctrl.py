@@ -23,7 +23,7 @@ MOTOR_LEFT_BACKWARD	= 27
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
-GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
+GPIO.setup(MOTOR_RIGHT_BACKWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
 
@@ -65,7 +65,7 @@ class MotorCtrl:
   def stop(self)
     print('Motor:= ; stopped', self.name)
     GPIO.output(self.pin_forward, 0)
-    GPIO.output(self.pin_forward, 0)
+    GPIO.output(self.pin_backward, 0)
     self.on  = False
     
   # Indicates if the motor is running
@@ -76,5 +76,5 @@ class MotorCtrl:
 #***************************************************************
 #	Objects
 #***************************************************************
-motor_right = MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_LEFT_BACKWARD, 'Right')
+motor_right = MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_RIGHT_BACKWARD, 'Right')
 motor_left  = MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
