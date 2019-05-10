@@ -1,4 +1,5 @@
 from motor_ctrl import motor_left, motor_right
+import time
 
 #***************************************************************
 #	Global-Functions
