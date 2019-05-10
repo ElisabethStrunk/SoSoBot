@@ -1,21 +1,7 @@
 
 from flask import Flask, request
 from flask_restful import Api, Resource
-import motor_ctrl
-
-
-#***************************************************************
-#	Globals
-#***************************************************************
-
-# GPIO-Pins
-MOTOR_LEFT			= 40
-MOTOR_RIGHT		    = 37
-
-
-motor_left      = motor_ctrl.MotorCtrl(MOTOR_RIGHT, 'Left')
-motor_right     = motor_ctrl.MotorCtrl(MOTOR_RIGHT, 'Right')
-
+from motor_ctrl import motor_left, motor_right
 
 #***************************************************************
 #	Global-Functions

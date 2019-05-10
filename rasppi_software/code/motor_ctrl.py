@@ -10,6 +10,15 @@ import RPi.GPIO as GPIO
 #	Globals
 #***************************************************************
 
+# GPIO-Pins
+MOTOR_LEFT			= 40
+MOTOR_RIGHT		    = 37
+
+
+motor_left      = motor_ctrl.MotorCtrl(MOTOR_RIGHT, 'Left')
+motor_right     = motor_ctrl.MotorCtrl(MOTOR_RIGHT, 'Right')
+
+
 #***************************************************************
 #	Global-Functions
 #***************************************************************
