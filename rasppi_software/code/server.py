@@ -40,8 +40,8 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'backward':
             if status == 'on':
-                motor_right.backwards()
-                motor_left.backwards()
+                motor_right.backward()
+                motor_left.backward()
                 return {"message": "BACKWARD movement started"}, 200
             elif status == 'off':
                 motor_right.stop()
