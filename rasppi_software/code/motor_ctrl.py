@@ -55,7 +55,7 @@ class MotorCtrl:
 
         
   # Starts the motor in backward direction
-  def forward(self):
+  def backward(self):
     print('Motor:= ; started backward', self.name)
     GPIO.output(self.pin_forward, 0)
     GPIO.output(self.pin_backward, 1)
