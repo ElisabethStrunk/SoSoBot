@@ -62,14 +62,14 @@ class MotorCtrl:
     self.on  = True
 
   # Stops the motor
-  def stop(self)
+  def stop(self):
     print('Motor:= ; stopped', self.name)
     GPIO.output(self.pin_forward, 0)
     GPIO.output(self.pin_backward, 0)
     self.on  = False
     
   # Indicates if the motor is running
-  def is_on(self)
+  def is_on(self):
     return self.on
 
 
