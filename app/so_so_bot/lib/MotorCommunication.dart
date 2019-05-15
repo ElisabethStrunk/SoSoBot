@@ -3,44 +3,44 @@ import 'dart:io';
 class MotorCommunication {
 
   String ipAddress;
-  String path = "/motor";
 
   HttpClient client = new HttpClient();
 
   MotorCommunication(this.ipAddress);
 
-  void startMotor(MotorSite motorSite) {
-    var uri = buildUri(motorSite, true);
-    request(uri);
+  void forward(bool on) {
+    request(ServerPaths.forwardPath, on);
   }
 
-  void stopMotor(MotorSite motorSite) {
-    var uri = buildUri(motorSite, false);
-    request(uri);
+  void backwards(bool on) {
+    request(ServerPaths.backwardPath, on);
   }
 
-  Uri buildUri(MotorSite motorSite, bool on) {
-    return Uri.parse(ipAddress + path + "/" + motorSite.toString() + "?on=" + (on ? "1" : "0"));
+  void left(bool on) {
+    request(ServerPaths.leftPath, on);
   }
 
-  void request(Uri uri) {
-    client.putUrl(uri).then((request) {
-      request.close();
+  void right(bool on) {
+    request(ServerPaths.rightPath, on);
+  }
+
+  Uri buildUri(String path, bool on) {
+    return Uri.parse("http://" + ipAddress + path + "/" + (on ? "on" : "off"));
+  }
+
+  void request(String path, bool on) {
+    client.getUrl(buildUri(path, on)).then((request) {
+      print(request);
+      return request.close();
+    }).then((response) {
+      print(response);
     });
   }
 }
 
-class MotorSite {
-  static MotorSite left = MotorSite("left");
-  static MotorSite right = MotorSite("right");
-  static MotorSite both = MotorSite("both");
-
-  String representation;
-
-  MotorSite(this.representation);
-
-  @override
-  String toString() {
-    return representation;
-  }
+class ServerPaths {
+  static const String forwardPath = "/forward";
+  static const String backwardPath = "/backwards";
+  static const String leftPath = "/left";
+  static const String rightPath = "/right";
 }
