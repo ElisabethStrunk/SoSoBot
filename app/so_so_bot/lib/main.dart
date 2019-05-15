@@ -46,7 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  // TODO input for IP address
+  // TODO widget for IP address
   MotorCommunication motorCommunication = new MotorCommunication("192.168.101.62");
 
   void onTapDownLeft(TapDownDetails details) {
@@ -65,9 +65,27 @@ class _MyHomePageState extends State<MyHomePage> {
     motorCommunication.right(false);
   }
 
+  void onTapDownForward(TapDownDetails details) {
+    motorCommunication.forward(true);
+  }
+
+  void onTapUpForward() {
+    motorCommunication.forward(false);
+  }
+
+  void onTapDownBackward(TapDownDetails details) {
+    motorCommunication.backwards(true);
+  }
+
+  void onTapUpBackward() {
+    motorCommunication.backwards(false);
+  }
+
   void onTapCanceled() {
-    motorCommunication.left(false);
-    motorCommunication.right(false);
+    onTapUpLeft();
+    onTapUpRight();
+    onTapUpBackward();
+    onTapUpForward();
   }
 
   @override
@@ -89,33 +107,54 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right:8),
-          child: Row(
-            // Row is a widget that displays its children in a horizontal array.
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                // Expanded is a widget that expands a child of a Row, Column, or
-                // Flex so that the child fills the available space.
-                child: GestureDetector(
-                  onTapDown: onTapDownLeft,
-                  onTapCancel: onTapCanceled,
-                  child: RaisedButton(
-                    child: Text("Left"),
-                    onPressed: onTapUpLeft,
-                  ),
+              GestureDetector(
+                onTapDown: onTapDownForward,
+                onTapCancel: onTapCanceled,
+                child: RaisedButton(
+                  child: Text("Forward"),
+                  onPressed: onTapUpForward,
                 ),
-                flex: 2,
               ),
-              Spacer(flex: 1,),
-              Expanded(
-                child: GestureDetector(
-                  onTapDown: onTapDownRight,
-                  child: RaisedButton(
-                    child: Text("Right"),
-                    onPressed: onTapUpRight,
+              Row(
+                // Row is a widget that displays its children in a horizontal array.
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    // Expanded is a widget that expands a child of a Row, Column, or
+                    // Flex so that the child fills the available space.
+                    child: GestureDetector(
+                      onTapDown: onTapDownLeft,
+                      onTapCancel: onTapCanceled,
+                      child: RaisedButton(
+                        child: Text("Left"),
+                        onPressed: onTapUpLeft,
+                      ),
+                    ),
+                    flex: 2,
                   ),
+                  Spacer(flex: 1,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTapDown: onTapDownRight,
+                      child: RaisedButton(
+                        child: Text("Right"),
+                        onPressed: onTapUpRight,
+                      ),
+                    ),
+                    flex: 2,
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTapDown: onTapDownBackward,
+                onTapCancel: onTapCanceled,
+                child: RaisedButton(
+                  child: Text("Backward"),
+                  onPressed: onTapUpBackward,
                 ),
-                flex: 2,
               ),
             ],
           ),
