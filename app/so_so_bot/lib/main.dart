@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'MotorCommunication.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,12 +46,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  void onLeftPressed() {
-    //todo call server
+  // TODO input for IP address
+  MotorCommunication motorCommunication = new MotorCommunication("192.168.101.62");
+
+  void onTapDownLeft(TapDownDetails details) {
+    motorCommunication.left(true);
   }
 
-  void onRightPressed() {
-    // todo call server
+  void onTapUpLeft() {
+    motorCommunication.left(false);
+  }
+
+  void onTapDownRight(TapDownDetails details) {
+    motorCommunication.right(true);
+  }
+  
+  void onTapUpRight() {
+    motorCommunication.right(false);
+  }
+
+  void onTapCanceled() {
+    motorCommunication.left(false);
+    motorCommunication.right(false);
   }
 
   @override
@@ -79,17 +96,24 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 // Expanded is a widget that expands a child of a Row, Column, or
                 // Flex so that the child fills the available space.
-                child: RaisedButton(
-                  onPressed: onLeftPressed,
-                  child: Text("Left"),
+                child: GestureDetector(
+                  onTapDown: onTapDownLeft,
+                  onTapCancel: onTapCanceled,
+                  child: RaisedButton(
+                    child: Text("Left"),
+                    onPressed: onTapUpLeft,
+                  ),
                 ),
                 flex: 2,
               ),
               Spacer(flex: 1,),
               Expanded(
-                child: RaisedButton(
-                  onPressed: onRightPressed,
-                  child: Text("Right"),
+                child: GestureDetector(
+                  onTapDown: onTapDownRight,
+                  child: RaisedButton(
+                    child: Text("Right"),
+                    onPressed: onTapUpRight,
+                  ),
                 ),
                 flex: 2,
               ),

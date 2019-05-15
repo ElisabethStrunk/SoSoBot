@@ -34,6 +34,7 @@ class MotorCommunication {
       return request.close();
     }).then((response) {
       print(response);
+      // TODO handle response
     });
   }
 }
