@@ -74,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onTapDownBackward(TapDownDetails details) {
-    motorCommunication.backwards(true);
+    motorCommunication.backward(true);
   }
 
   void onTapUpBackward() {
-    motorCommunication.backwards(false);
+    motorCommunication.backward(false);
   }
 
   void onTapCanceled() {

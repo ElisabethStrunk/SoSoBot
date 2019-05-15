@@ -12,7 +12,7 @@ class MotorCommunication {
     request(ServerPaths.forwardPath, on);
   }
 
-  void backwards(bool on) {
+  void backward(bool on) {
     request(ServerPaths.backwardPath, on);
   }
 
@@ -41,7 +41,7 @@ class MotorCommunication {
 
 class ServerPaths {
   static const String forwardPath = "/forward";
-  static const String backwardPath = "/backwards";
+  static const String backwardPath = "/backward";
   static const String leftPath = "/left";
   static const String rightPath = "/right";
 }
