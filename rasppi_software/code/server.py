@@ -11,19 +11,19 @@ class Motor(Resource):
     def get(self, direction, status):
         if direction == 'right':
             if status == 'on':
-                motor_right.forward()
+                motor_left.forward()
                 return {"message": "RIGHT movement started"}, 200
             elif status == 'off':
-                motor_right.stop()
+                motor_left.stop()
                 return {"message": "RIGHT movement stopped"}, 200
             else:
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'left':
             if status == 'on':
-                motor_left.forward()
+                motor_right.forward()
                 return {"message": "LEFT movement started"}, 200
             elif status == 'off':
-                motor_left.stop()
+                motor_right.stop()
                 return {"message": "LEFT movement stopped"}, 200
             else:
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
