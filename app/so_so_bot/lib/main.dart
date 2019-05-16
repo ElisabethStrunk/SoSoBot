@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
         // changing the primarySwatch below to Colors.green and then invoke
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        // The application is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'SoSoBot Controller'),
@@ -102,62 +101,58 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, right:8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTapDown: onTapDownForward,
-                onTapCancel: onTapCanceled,
-                child: RaisedButton(
-                  child: Text("Forward"),
-                  onPressed: onTapUpForward,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8, right:8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            GestureDetector(
+              onTapDown: onTapDownForward,
+              onTapCancel: onTapCanceled,
+              child: RaisedButton(
+                child: Icon(Icons.keyboard_arrow_up),
+                onPressed: onTapUpForward,
               ),
-              Row(
-                // Row is a widget that displays its children in a horizontal array.
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    // Expanded is a widget that expands a child of a Row, Column, or
-                    // Flex so that the child fills the available space.
-                    child: GestureDetector(
-                      onTapDown: onTapDownLeft,
-                      onTapCancel: onTapCanceled,
-                      child: RaisedButton(
-                        child: Text("Left"),
-                        onPressed: onTapUpLeft,
-                      ),
+            ),
+            Row(
+              // Row is a widget that displays its children in a horizontal array.
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  // Expanded is a widget that expands a child of a Row, Column, or
+                  // Flex so that the child fills the available space.
+                  child: GestureDetector(
+                    onTapDown: onTapDownLeft,
+                    onTapCancel: onTapCanceled,
+                    child: RaisedButton(
+                      child: Icon(Icons.keyboard_arrow_left),
+                      onPressed: onTapUpLeft,
                     ),
-                    flex: 2,
                   ),
-                  Spacer(flex: 1,),
-                  Expanded(
-                    child: GestureDetector(
-                      onTapDown: onTapDownRight,
-                      child: RaisedButton(
-                        child: Text("Right"),
-                        onPressed: onTapUpRight,
-                      ),
-                    ),
-                    flex: 2,
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTapDown: onTapDownBackward,
-                onTapCancel: onTapCanceled,
-                child: RaisedButton(
-                  child: Text("Backward"),
-                  onPressed: onTapUpBackward,
+                  flex: 2,
                 ),
+                Spacer(flex: 1,),
+                Expanded(
+                  child: GestureDetector(
+                    onTapDown: onTapDownRight,
+                    child: RaisedButton(
+                      child: Icon(Icons.keyboard_arrow_right),
+                      onPressed: onTapUpRight,
+                    ),
+                  ),
+                  flex: 2,
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTapDown: onTapDownBackward,
+              onTapCancel: onTapCanceled,
+              child: RaisedButton(
+                child: Icon(Icons.keyboard_arrow_down),
+                onPressed: onTapUpBackward,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
