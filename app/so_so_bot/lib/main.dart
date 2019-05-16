@@ -166,31 +166,23 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Row(
               // Row is a widget that displays its children in a horizontal array.
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Expanded(
-                  // Expanded is a widget that expands a child of a Row, Column, or
-                  // Flex so that the child fills the available space.
-                  child: GestureDetector(
-                    onTapDown: onTapDownLeft,
-                    onTapCancel: onTapCanceled,
-                    child: RaisedButton(
-                      child: Icon(Icons.keyboard_arrow_left),
-                      onPressed: onTapUpLeft,
-                    ),
+                GestureDetector(
+                  onTapDown: onTapDownLeft,
+                  onTapCancel: onTapCanceled,
+                  child: RaisedButton(
+                    child: Icon(Icons.keyboard_arrow_left),
+                    onPressed: onTapUpLeft,
                   ),
-                  flex: 2,
                 ),
-                Spacer(flex: 1,),
-                Expanded(
-                  child: GestureDetector(
-                    onTapDown: onTapDownRight,
-                    child: RaisedButton(
-                      child: Icon(Icons.keyboard_arrow_right),
-                      onPressed: onTapUpRight,
-                    ),
+                GestureDetector(
+                  onTapDown: onTapDownRight,
+                  onTapCancel: onTapCanceled,
+                  child: RaisedButton(
+                    child: Icon(Icons.keyboard_arrow_right),
+                    onPressed: onTapUpRight,
                   ),
-                  flex: 2,
                 ),
               ],
             ),
