@@ -86,6 +86,44 @@ class _MyHomePageState extends State<MyHomePage> {
     onTapUpBackward();
     onTapUpForward();
   }
+  
+  void onPopupMenuSelected(int index) {
+    if (index == 0) {
+      showDialog(context: context, barrierDismissible: false, builder: (context) {
+        return ipAddressDialog(context);
+      });
+    }
+  }
+
+  Widget ipAddressDialog(BuildContext context) {
+    String enteredAddress;
+    return SimpleDialog(
+      title: Text("Enter the server IPv4 address"),
+      children: <Widget>[
+        SimpleDialogOption(
+          child: TextField(onChanged: (value) => enteredAddress = value,),
+        ),
+        SimpleDialogOption(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              FlatButton(
+                child: Text("Cancel"),
+                onPressed: () => Navigator.pop(context),
+              ),
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  motorCommunication.ipAddress = enteredAddress;
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +138,18 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        actions: <Widget>[
+          PopupMenuButton<int>(
+            offset: Offset(0, 48),
+            onSelected: onPopupMenuSelected,
+            itemBuilder: (context) => <PopupMenuEntry<int>>[
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text("Set IP adress"),
+              ),
+            ],
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8, right:8),
