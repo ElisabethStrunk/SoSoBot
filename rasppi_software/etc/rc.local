@@ -24,6 +24,6 @@ python3 /home/pi/SoSoBot/rasppi_software/code/shutdown_ctrl.py &
 amixer cset numid=3 1
 
 # play start sound
-omxplayer -o local /home/pi/SoSoBot/rasppi_software/code/start.mp3
+omxplayer -o local /home/pi/SoSoBot/rasppi_software/code/start.mp3 &
 
 exit 0

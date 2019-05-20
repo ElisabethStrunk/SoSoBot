@@ -11,10 +11,10 @@ import RPi.GPIO as GPIO
 #***************************************************************
 
 # GPIO-Pins (12,13,18 and 19 are capable of PWM)
-MOTOR_RIGHT_FORWARD = 14
-MOTOR_RIGHT_BACKWARD = 15
+MOTOR_RIGHT_FORWARD = 23
+MOTOR_RIGHT_BACKWARD = 24
 MOTOR_LEFT_FORWARD = 17
-MOTOR_LEFT_BACKWARD	= 27
+MOTOR_LEFT_BACKWARD = 27
 
 
 #***************************************************************
