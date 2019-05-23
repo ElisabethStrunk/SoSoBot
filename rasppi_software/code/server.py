@@ -9,7 +9,7 @@ import os
 
 def calculate_velocity(velocity):
     calc_velocity = 0
-    if velocity <= 5.0
+    if velocity <= 5.0:
         calc_velocity = 0
     elif velocity <= 15.0:
         calc_velocity = 10
