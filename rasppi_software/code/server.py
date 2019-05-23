@@ -6,6 +6,33 @@ from motor_ctrl import direction
 
 import os
 
+
+def calculate_velocity(velocity):
+    calc_velocity = 0
+    if velocity <= 5.0
+        calc_velocity = 0
+    elif velocity <= 15.0:
+        calc_velocity = 10
+    elif velocity <= 25.0:
+        calc_velocity = 20
+    elif velocity <= 35.0:
+        calc_velocity = 30
+    elif velocity <= 45.0:
+        calc_velocity = 40
+    elif velocity <= 55.0:
+        calc_velocity = 50
+    elif velocity <= 65.0:
+        calc_velocity = 60
+    elif velocity <= 75.0:
+        calc_velocity = 70
+    elif velocity <= 85.0:
+        calc_velocity = 80
+    elif velocity <= 95.0:
+        calc_velocity = 90
+    else:
+        calc_velocity = 100
+    return calc_velocity
+
 #***************************************************************
 #	Global-Functions
 #***************************************************************
@@ -13,6 +40,7 @@ import os
 @app.route('/Motor/<string:direct>/<string:status>/<float:velocity>')
 class Motor(Resource):
     def get(self, direct, status, velocity):
+        velocity = calculate_velocity(velocity)
         if direct == 'right':
             if status == 'on':
                 motor_left.run(direction.FORWARD, velocity=None)

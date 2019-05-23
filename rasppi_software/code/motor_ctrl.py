@@ -76,6 +76,7 @@ class MotorCtrl:
     period = 1 / PWM_FREQUENCY
     self.t_on = self.duty_cycle * period
     self.t_off = (1 - self.duty_cycle) * period  
+    print(self.name + ': ' + 't_on = ' + self.t_on + 't_off = ' + self.t_off)
 
     self.__run()
 
