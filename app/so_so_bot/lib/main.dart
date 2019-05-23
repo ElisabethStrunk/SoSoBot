@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'MotorCommunication.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,12 +46,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  void onLeftPressed() {
-    //todo call server
+  // TODO widget for IP address
+  MotorCommunication motorCommunication = new MotorCommunication("192.168.101.62");
+
+  void onTapDownLeft(TapDownDetails details) {
+    motorCommunication.left(true);
   }
 
-  void onRightPressed() {
-    // todo call server
+  void onTapUpLeft() {
+    motorCommunication.left(false);
+  }
+
+  void onTapDownRight(TapDownDetails details) {
+    motorCommunication.right(true);
+  }
+  
+  void onTapUpRight() {
+    motorCommunication.right(false);
+  }
+
+  void onTapDownForward(TapDownDetails details) {
+    motorCommunication.forward(true);
+  }
+
+  void onTapUpForward() {
+    motorCommunication.forward(false);
+  }
+
+  void onTapDownBackward(TapDownDetails details) {
+    motorCommunication.backward(true);
+  }
+
+  void onTapUpBackward() {
+    motorCommunication.backward(false);
+  }
+
+  void onTapCanceled() {
+    onTapUpLeft();
+    onTapUpRight();
+    onTapUpBackward();
+    onTapUpForward();
   }
 
   @override
@@ -72,26 +107,54 @@ class _MyHomePageState extends State<MyHomePage> {
         // in the middle of the parent.
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right:8),
-          child: Row(
-            // Row is a widget that displays its children in a horizontal array.
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                // Expanded is a widget that expands a child of a Row, Column, or
-                // Flex so that the child fills the available space.
+              GestureDetector(
+                onTapDown: onTapDownForward,
+                onTapCancel: onTapCanceled,
                 child: RaisedButton(
-                  onPressed: onLeftPressed,
-                  child: Text("Left"),
+                  child: Text("Forward"),
+                  onPressed: onTapUpForward,
                 ),
-                flex: 2,
               ),
-              Spacer(flex: 1,),
-              Expanded(
+              Row(
+                // Row is a widget that displays its children in a horizontal array.
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    // Expanded is a widget that expands a child of a Row, Column, or
+                    // Flex so that the child fills the available space.
+                    child: GestureDetector(
+                      onTapDown: onTapDownLeft,
+                      onTapCancel: onTapCanceled,
+                      child: RaisedButton(
+                        child: Text("Left"),
+                        onPressed: onTapUpLeft,
+                      ),
+                    ),
+                    flex: 2,
+                  ),
+                  Spacer(flex: 1,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTapDown: onTapDownRight,
+                      child: RaisedButton(
+                        child: Text("Right"),
+                        onPressed: onTapUpRight,
+                      ),
+                    ),
+                    flex: 2,
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTapDown: onTapDownBackward,
+                onTapCancel: onTapCanceled,
                 child: RaisedButton(
-                  onPressed: onRightPressed,
-                  child: Text("Right"),
+                  child: Text("Backward"),
+                  onPressed: onTapUpBackward,
                 ),
-                flex: 2,
               ),
             ],
           ),
