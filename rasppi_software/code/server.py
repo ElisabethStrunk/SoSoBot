@@ -37,7 +37,6 @@ def calculate_velocity(velocity):
 #	Global-Functions
 #***************************************************************
 
-@app.route('/Motor/<string:direct>/<string:status>/<float:velocity>')
 class Motor(Resource):
     def get(self, direct, status, velocity):
         velocity = calculate_velocity(velocity)
