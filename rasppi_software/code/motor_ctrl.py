@@ -92,29 +92,29 @@ class MotorCtrl:
     self.on  = True
         
   # Starts the motor in backward direction
-  def __backward(self, velocity):
+  def __backward(self):
     GPIO.output(self.pin_forward, 0)
     GPIO.output(self.pin_backward, 1)
     self.on  = True
 
   def __run(self):
 
-    if self.direct == direction.FORWARD
-      if self.on == True
+    if self.direct == direction.FORWARD:
+      if self.on == True:
         self.stop()
       else:
         self.__forward()
-    elif self.direct = direction.BACKWARD:
-      if self.on == True
+    elif self.direct == direction.BACKWARD:
+      if self.on == True:
         self.stop()
       else:
         self.__backward()
   
-    if self.t_off == 0
+    if self.t_off == 0:
       pass
-    elif self.on == True
+    elif self.on == True:
       threading.Timer(self.t_on, self.__run).start()
-    elif self.on == False
+    elif self.on == False:
       threading.Timer(self.t_off, self.__run).start()
     
   # Indicates if the motor is running

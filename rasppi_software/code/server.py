@@ -10,18 +10,19 @@ import os
 #	Global-Functions
 #***************************************************************
 
+@app.route('/Motor/<string:direct>/<string:status>/<float:velocity>')
 class Motor(Resource):
-    def get(self, direction, status, velocity):
-        if direction == 'right':
+    def get(self, direct, status, velocity):
+        if direct == 'right':
             if status == 'on':
-                motor_left.run(direction.FORWARD, velocity)
+                motor_left.run(direction.FORWARD, velocity=None)
                 return {"message": "RIGHT movement started"}, 200
             elif status == 'off':
                 motor_left.stop()
                 return {"message": "RIGHT movement stopped"}, 200
             else:
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
-        elif direction == 'left':
+        elif direct == 'left':
             if status == 'on':
                 motor_right.run(direction.FORWARD, velocity)
                 return {"message": "LEFT movement started"}, 200
@@ -30,7 +31,7 @@ class Motor(Resource):
                 return {"message": "LEFT movement stopped"}, 200
             else:
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
-        elif direction == 'forward':
+        elif direct == 'forward':
             if status == 'on':
                 motor_right.run(direction.FORWARD, velocity)
                 motor_left.run(direction.FORWARD, velocity)
@@ -41,7 +42,7 @@ class Motor(Resource):
                 return {"message": "BACKWARD movement started"}, 200
             else:
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
-        elif direction == 'backward':
+        elif direct == 'backward':
             if status == 'on':
                 motor_right.run(direction.BACKWARD, velocity)
                 motor_left.run(direction.BACKWARD, velocity)
@@ -68,7 +69,7 @@ class Horn(Resource):
 
 app = Flask(__name__)
 api = Api(app)
-api.add_resource(Motor, '/<string:direction>/<string:status>/<float:velocity>')
+api.add_resource(Motor, '/<string:direct>/<string:status>/<float:velocity>')
 api.add_resource(Horn, '/<string:status>')
 
 if __name__ == '__main__':
