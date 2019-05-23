@@ -2,7 +2,6 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
 from motor_ctrl import motor_left, motor_right
-from motor_ctrl import direction
 
 import os
 
@@ -11,10 +10,10 @@ import os
 #***************************************************************
 
 class Motor(Resource):
-    def get(self, direction, status, velocity):
+    def get(self, direction, status):
         if direction == 'right':
             if status == 'on':
-                motor_left.run(direction.FORWARD, velocity)
+                motor_left.forward()
                 return {"message": "RIGHT movement started"}, 200
             elif status == 'off':
                 motor_left.stop()
@@ -23,7 +22,7 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'left':
             if status == 'on':
-                motor_right.run(direction.FORWARD, velocity)
+                motor_right.forward()
                 return {"message": "LEFT movement started"}, 200
             elif status == 'off':
                 motor_right.stop()
@@ -32,8 +31,8 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'forward':
             if status == 'on':
-                motor_right.run(direction.FORWARD, velocity)
-                motor_left.run(direction.FORWARD, velocity)
+                motor_right.forward()
+                motor_left.forward()
                 return {"message": "FORWARD movement started"}, 200
             elif status == 'off':
                 motor_right.stop()
@@ -43,8 +42,8 @@ class Motor(Resource):
                 return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
         elif direction == 'backward':
             if status == 'on':
-                motor_right.run(direction.BACKWARD, velocity)
-                motor_left.run(direction.BACKWARD, velocity)
+                motor_right.backward()
+                motor_left.backward()
                 return {"message": "BACKWARD movement started"}, 200
             elif status == 'off':
                 motor_right.stop()
@@ -68,7 +67,7 @@ class Horn(Resource):
 
 app = Flask(__name__)
 api = Api(app)
-api.add_resource(Motor, '/<string:direction>/<string:status>/<float:velocity>')
+api.add_resource(Motor, '/<string:direction>/<string:status>')
 api.add_resource(Horn, '/<string:status>')
 
 if __name__ == '__main__':

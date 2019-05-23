@@ -4,7 +4,6 @@
 import os
 import time
 import RPi.GPIO as GPIO
-import sys
 
 #***************************************************************
 #	Globals

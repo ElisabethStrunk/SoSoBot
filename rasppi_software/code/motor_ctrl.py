@@ -5,8 +5,6 @@
 import smbus
 import os
 import RPi.GPIO as GPIO
-import threading
-from enum import Enum
 
 #***************************************************************
 #	Globals
@@ -17,7 +15,7 @@ MOTOR_RIGHT_FORWARD = 23
 MOTOR_RIGHT_BACKWARD = 24
 MOTOR_LEFT_FORWARD = 17
 MOTOR_LEFT_BACKWARD = 27
-PWM_FREQUENCY = 10000
+
 
 #***************************************************************
 #	Setup
@@ -28,16 +26,6 @@ GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_RIGHT_BACKWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
-
-class direction(Enum):
-  FORWARD  = 1
-  BACKWARD = 2
-  STOP = 3
-
-#***************************************************************
-#	Private-Functions
-#***************************************************************
-# Starts the motor in forward direction
 
 
 #***************************************************************
@@ -57,65 +45,28 @@ class MotorCtrl:
     self.pin_backward = gpio_pin_backward
     self.name = name
     self.on  = False
-    
-    self.direct = direction.STOP
-    self.t_on = 0
-    self.t_off =  0
 
-  #
-  def run(self, direct, velocity):
-    self.direct = direct
-
-    # calculates the duty_cycle by velocity
-    if velocity is None:
-      duty_cycle = 1
-    else:
-      duty_cycle = velocity / 100
-
-    # calculates t_on and t_off for the PWM
-    period = 1 / PWM_FREQUENCY
-    self.t_on = self.duty_cycle * period
-    self.t_off = (1 - self.duty_cycle) * period  
-
-    self.__run()
-
-   # Stops the motor
-  def stop(self):
-    GPIO.output(self.pin_forward, 0)
-    GPIO.output(self.pin_backward, 0)
-    self.on  = False
-  
   # Starts the motor in forward direction
-  def __forward(self):
+  def forward(self):
+    print('Motor:= ; started forward', self.name)
     GPIO.output(self.pin_backward, 0)
     GPIO.output(self.pin_forward, 1)
     self.on  = True
+
         
   # Starts the motor in backward direction
-  def __backward(self, velocity):
+  def backward(self):
+    print('Motor:= ; started backward', self.name)
     GPIO.output(self.pin_forward, 0)
     GPIO.output(self.pin_backward, 1)
     self.on  = True
 
-  def __run(self):
-
-    if self.direct == direction.FORWARD
-      if self.on == True
-        self.stop()
-      else:
-        self.__forward()
-    elif self.direct = direction.BACKWARD:
-      if self.on == True
-        self.stop()
-      else:
-        self.__backward()
-  
-    if self.t_off == 0
-      pass
-    elif self.on == True
-      threading.Timer(self.t_on, self.__run).start()
-    elif self.on == False
-      threading.Timer(self.t_off, self.__run).start()
+  # Stops the motor
+  def stop(self):
+    print('Motor:= ; stopped', self.name)
+    GPIO.output(self.pin_forward, 0)
+    GPIO.output(self.pin_backward, 0)
+    self.on  = False
     
   # Indicates if the motor is running
   def is_on(self):
