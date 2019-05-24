@@ -7,13 +7,38 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <TextView
+    <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:id="@+id/imageButton" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageButton4" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton4" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            android:onClick="onLeftButtonPressed"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:id="@+id/imageButton2"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@+id/imageButton4" android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/imageButton4"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+            android:onClick="onRightButtonPressed"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+            android:id="@+id/imageButton3"
+            app:layout_constraintEnd_toEndOf="@+id/imageButton4"
+            app:layout_constraintStart_toStartOf="@+id/imageButton4" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginBottom="64dp" app:layout_constraintBottom_toTopOf="@+id/imageButton4"
+            android:onClick="onForwardButtonPressed"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:id="@+id/imageButton4" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" android:onClick="onBackwardButtonPressed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
