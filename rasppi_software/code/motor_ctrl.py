@@ -65,6 +65,7 @@ class MotorCtrl:
   #
   def run(self, direct, velocity):
     self.direct = direct
+    self.t_off =  0
 
     # calculates the duty_cycle by velocity
     if velocity is None:
@@ -75,9 +76,8 @@ class MotorCtrl:
     # calculates t_on and t_off for the PWM
     period = 1 / PWM_FREQUENCY
     self.t_on = duty_cycle * period
-    self.t_off = (1 - duty_cycle) * period  
-    print(self.name + ': ' + 't_on = ' + str(self.t_on) + 't_off = ' + str(self.t_off)
-
+    self.t_off = period - self.t_on  
+    print(self.name + ': ' + 't_on = ' + str(self.t_on) + 't_off = ' + str(self.t_off))
     self.__run()
 
    # Stops the motor
@@ -110,9 +110,14 @@ class MotorCtrl:
         self.stop()
       else:
         self.__backward()
-  
-    if self.t_off == 0:
-      pass
+     
+    if self.t_off <= 0.0:
+      if self.direct == direction.FORWARD:
+        self.__forward()
+      else:
+        self.__backward()
+    elif self.t_on <= 0.0:
+       self.stop()
     elif self.on == True:
       threading.Timer(self.t_on, self.__run).start()
     elif self.on == False:

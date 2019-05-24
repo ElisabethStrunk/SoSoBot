@@ -4,6 +4,9 @@ from flask_restful import Api, Resource
 from motor_ctrl import motor_left, motor_right
 from motor_ctrl import direction
 
+from led import LED_RIGHT, LED_LEFT
+import RPi.GPIO as GPIO
+
 import os
 
 
@@ -94,10 +97,34 @@ class Horn(Resource):
         else:
             return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
 
+class Led(Resource):
+    def get(self, position, status):
+        if position == 'right_led':
+            if status == 'on':
+                GPIO.output(LED_RIGHT, 1)
+                return {"message": "RIGHT LED is turned on"}, 200
+            elif status == 'off':
+                GPIO.output(LED_RIGHT, 0)
+                return {"message": "RIGHT LED is turned off"}, 200
+            else:
+                return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
+        if position == 'left_led':
+            if status == 'on':
+                GPIO.output(LED_LEFT, 1)
+                return {"message": "LEFT LED is turned on"}, 200
+            elif status == 'off':
+                GPIO.output(LED_LEFT, 0)
+                return {"message": "LEFT LED is turned off"}, 200
+            else:
+                return {"message": "Parameter ON/OFF is either missing or not valid"}, 400
+        else:
+            return {"message": "Position '{}' not found".format(direction)}, 400
+
 app = Flask(__name__)
 api = Api(app)
 api.add_resource(Motor, '/<string:direct>/<string:status>/<float:velocity>')
 api.add_resource(Horn, '/<string:status>')
+api.add_resource(Led, '/<string:position>/<string:status>')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
