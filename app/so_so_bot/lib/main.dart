@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:so_so_bot/dialogs.dart';
 import 'MotorCommunication.dart';
 
 void main() => runApp(MyApp());
@@ -90,45 +91,21 @@ class _MyHomePageState extends State<MyHomePage> {
   void onPopupMenuSelected(int index) {
     if (index == 0) {
       showDialog(context: context, barrierDismissible: false, builder: (context) {
-        return ipAddressDialog(context);
+        return IpAddressDialog(
+            onOkPressed: (ip) {
+              motorCommunication.ipAddress = ip;
+              Navigator.pop(context);
+            },
+            onCancel: () {
+              Navigator.pop(context);
+            });
       });
     }
   }
 
-  Widget ipAddressDialog(BuildContext context) {
-    String enteredAddress;
-    return SimpleDialog(
-      title: Text("Enter the server IPv4 address"),
-      children: <Widget>[
-        SimpleDialogOption(
-          child: TextField(onChanged: (value) => enteredAddress = value,),
-        ),
-        SimpleDialogOption(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              FlatButton(
-                child: Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              FlatButton(
-                child: Text("OK"),
-                onPressed: () {
-                  motorCommunication.ipAddress = enteredAddress;
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
+    // This method is rerun every time setState is called.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
