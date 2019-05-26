@@ -12,7 +12,8 @@ class RobotConnection(ipAddress: String) {
         FuelManager.instance.basePath = "http://$ipAddress"
     }
 
-    fun move(direction: Direction) {
+    fun move(direction: Direction, power: Byte = 100) {
+        // TODO update request for power parameter
         request("/$direction", true)
     }
 

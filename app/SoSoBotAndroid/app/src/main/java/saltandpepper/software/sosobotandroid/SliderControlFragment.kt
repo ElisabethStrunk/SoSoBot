@@ -22,19 +22,18 @@ class SliderControlFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private val offset = 100
     private var previousProgress = offset
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // TODO find views and bind to SeekBar.OnSeekBarChangeListener
-        leftRightSeekBar.setOnSeekBarChangeListener(this)
-        upDownSeekBar.setOnSeekBarChangeListener(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_slider_control, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        leftRightSeekBar.setOnSeekBarChangeListener(this)
+        upDownSeekBar.setOnSeekBarChangeListener(this)
     }
 
     override fun onAttach(context: Context) {
@@ -69,7 +68,7 @@ class SliderControlFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
                     if (previousProgress > offset) Direction.RIGHT else Direction.LEFT
                 }
             }
-            upDownSeekBar -> when {
+            upDownSeekBar -> when { // TODO isn't called
                 progress > offset -> { // up
                     Direction.FORWARD
                 }
@@ -87,7 +86,6 @@ class SliderControlFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
