@@ -3,7 +3,6 @@ package saltandpepper.software.sosobotandroid
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.SeekBar
 
@@ -38,7 +37,6 @@ class VerticalSeekBar(context: Context, attrs: AttributeSet) : SeekBar(context, 
             MotionEvent.ACTION_MOVE,
             MotionEvent.ACTION_UP -> {
                 progress = max - (max * event.y / height).toInt()
-                Log.i("Progress", progress.toString())
                 onSizeChanged(width, height, 0, 0)
             }
         }
