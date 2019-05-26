@@ -1,12 +1,13 @@
 package saltandpepper.software.sosobotandroid
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
+import kotlinx.android.synthetic.main.fragment_slider_control.*
 
 /**
  * A simple [Fragment] subclass.
@@ -15,13 +16,17 @@ import android.view.ViewGroup
  * to handle interaction events.
  *
  */
-class SliderControlFragment : Fragment() {
-
+class SliderControlFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     private var listener: OnFragmentInteractionListener? = null
+
+    private val offset = 100
+    private var previousProgress = offset
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // TODO find views and bind to SeekBar.OnSeekBarChangeListener
+        leftRightSeekBar.setOnSeekBarChangeListener(this)
+        upDownSeekBar.setOnSeekBarChangeListener(this)
     }
 
     override fun onCreateView(
@@ -46,6 +51,49 @@ class SliderControlFragment : Fragment() {
         listener = null
     }
 
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        if (!fromUser || progress == previousProgress) {
+            return
+        }
+
+        val power = if (progress > offset) progress - offset else offset - progress
+        val direction: Direction = when (seekBar) {
+            leftRightSeekBar -> when {
+                progress > offset -> { // right
+                    Direction.RIGHT
+                }
+                progress < offset -> { // left
+                    Direction.LEFT
+                }
+                else -> { // stop
+                    if (previousProgress > offset) Direction.RIGHT else Direction.LEFT
+                }
+            }
+            upDownSeekBar -> when {
+                progress > offset -> { // up
+                    Direction.FORWARD
+                }
+                progress < offset -> { // down
+                    Direction.BACKWARD
+                }
+                else -> { // stop
+                    if (previousProgress > offset) Direction.FORWARD else Direction.BACKWARD
+                }
+            }
+            else -> return
+        }
+        listener?.onFragmentInteraction(direction, power)
+        previousProgress = progress
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+        seekBar?.setProgress(offset, true)
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -58,7 +106,6 @@ class SliderControlFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(direction: Direction, power: Int)
     }
 }
