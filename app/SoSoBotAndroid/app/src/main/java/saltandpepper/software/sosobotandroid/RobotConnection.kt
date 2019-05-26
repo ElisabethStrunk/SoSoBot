@@ -5,21 +5,6 @@ import com.github.kittinunf.fuel.httpGet
 
 class RobotConnection(ipAddress: String) {
 
-    enum class Direction {
-        FORWARD, BACKWARD, LEFT, RIGHT;
-
-        fun asPath(): String = "/" + toString()
-
-        override fun toString(): String{
-            return when (this) {
-                FORWARD -> "forward"
-                BACKWARD -> "backward"
-                LEFT -> "left"
-                RIGHT -> "right"
-            }
-        }
-    }
-
     private val onPath = "/on/100.0"
     private val offPath = "/off/0.0"
 
@@ -28,11 +13,11 @@ class RobotConnection(ipAddress: String) {
     }
 
     fun move(direction: Direction) {
-        request(direction.asPath(), true)
+        request("/$direction", true)
     }
 
     fun stop(direction: Direction) {
-        request(direction.asPath(), false)
+        request("/$direction", false)
     }
 
     private fun pathForBool(isOn: Boolean): String = if (isOn) onPath else offPath
