@@ -5,10 +5,20 @@ import com.github.kittinunf.fuel.httpGet
 
 class RobotConnection(ipAddress: String) {
 
-    private val forwardPath = "/forward"
-    private val backwardPath = "/backward"
-    private val leftPath = "/left"
-    private val rightPath = "/right"
+    enum class Direction {
+        FORWARD, BACKWARD, LEFT, RIGHT;
+
+        fun asPath(): String = "/" + toString()
+
+        override fun toString(): String{
+            return when (this) {
+                FORWARD -> "forward"
+                BACKWARD -> "backward"
+                LEFT -> "left"
+                RIGHT -> "right"
+            }
+        }
+    }
 
     private val onPath = "/on/100.0"
     private val offPath = "/off/0.0"
@@ -17,20 +27,12 @@ class RobotConnection(ipAddress: String) {
         FuelManager.instance.basePath = "http://$ipAddress"
     }
 
-    fun forward(isOn: Boolean) {
-        request(forwardPath, isOn)
+    fun move(direction: Direction) {
+        request(direction.asPath(), true)
     }
 
-    fun backward(isOn: Boolean) {
-        request(backwardPath, isOn)
-    }
-
-    fun left(isOn: Boolean) {
-        request(leftPath, isOn)
-    }
-
-    fun right(isOn: Boolean) {
-        request(rightPath, isOn)
+    fun stop(direction: Direction) {
+        request(direction.asPath(), false)
     }
 
     private fun pathForBool(isOn: Boolean): String = if (isOn) onPath else offPath
