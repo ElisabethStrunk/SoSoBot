@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
 
     private val onTouch: (View,  MotionEvent) -> Boolean = { view, motionEvent ->
         val direction = when (view) {
-            leftButton -> RobotConnection.Direction.LEFT
-            upButton -> RobotConnection.Direction.FORWARD
-            rightButton -> RobotConnection.Direction.RIGHT
-            else -> RobotConnection.Direction.BACKWARD
+            leftButton -> Direction.LEFT
+            upButton -> Direction.FORWARD
+            rightButton -> Direction.RIGHT
+            else -> Direction.BACKWARD
         }
 
         when (motionEvent.actionMasked) {
