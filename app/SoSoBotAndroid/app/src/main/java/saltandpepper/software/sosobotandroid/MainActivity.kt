@@ -6,8 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentInteractionListener {
     private val robotConnection = RobotConnection("192.168.101.62")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +32,9 @@ class MainActivity : AppCompatActivity() {
             MotionEvent.ACTION_UP -> robotConnection.stop(direction)
         }
         false
+    }
+
+    override fun onFragmentInteraction(direction: Direction, power: Int) {
+        robotConnection.move(direction, power.toByte())
     }
 }
