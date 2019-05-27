@@ -1,9 +1,10 @@
 package saltandpepper.software.sosobotandroid
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentInteractionListener {
@@ -28,13 +29,17 @@ class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentIntera
         }
 
         when (motionEvent.actionMasked) {
-            MotionEvent.ACTION_DOWN -> robotConnection.move(direction)
-            MotionEvent.ACTION_UP -> robotConnection.stop(direction)
+            MotionEvent.ACTION_DOWN -> robotConnection.move(direction, onError = this::onError)
+            MotionEvent.ACTION_UP -> robotConnection.stop(direction, this::onError)
         }
         false
     }
 
     override fun onFragmentInteraction(direction: Direction, power: Int) {
         robotConnection.move(direction, power.toByte())
+    }
+
+    private fun onError(message: String) {
+        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show()
     }
 }
