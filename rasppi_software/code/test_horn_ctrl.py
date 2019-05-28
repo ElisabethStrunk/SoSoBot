@@ -14,7 +14,7 @@ try:
     horn_1.backward()
     time.sleep(5)
     print('Test: Turn ON the horn sound for stop')
-    horn_1.stop(0.5)
+    horn_1.stop()
     time.sleep(5)
     break
           

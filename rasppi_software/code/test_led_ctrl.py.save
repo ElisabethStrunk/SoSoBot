@@ -22,14 +22,14 @@ try:
     led_right.off()
     time.sleep(5)
     print('Test: Let the led blink with a frequency of 2Hz')
-    led_left.on(2)
-    led_right.on(2)
-#    time.sleep(5)
-#    print('Test: Turn OFF both leds')
-#    led_left.off()
-#    led_right.off()
-#    time.sleep(5)
-#    break
+    led_left.blink(2)
+    led_right.blink(2)
+c    time.sleep(5)
+    print('Test: Turn OFF both leds')
+    led_left.off()
+    led_right.off()
+    time.sleep(5)
+    break
           
 except KeyboardInterrupt:
 	GPIO.cleanup()
