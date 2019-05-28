@@ -23,9 +23,9 @@ def calculate_velocity(velocity):
 #	Classes
 #***************************************************************
 app = Flask(__name__)
-@app.route('/Motor/<string:direct>/')
-@app.route('/Motor/<string:direct>/<float:velocity>/')
-@app.route('/Motor/<string:direct>/<float:velocity>/<int:angle>')
+@app.route('/Move/<string:direct>/')
+@app.route('/Move/<string:direct>/<float:velocity>/')
+@app.route('/Move/<string:direct>/<float:velocity>/<int:angle>')
 def motor(direct, velocity = 1.0, angle = 0):
   velocity = calculate_velocity(velocity)
   if direct == 'right':
