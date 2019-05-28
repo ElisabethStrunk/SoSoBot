@@ -20,9 +20,10 @@ class MainActivity : AppCompatActivity() {
         downButton.setOnTouchListener(onTouch)
     }
 
-    private val onTouch: (View,  MotionEvent) -> Boolean = { view, motionEvent ->
+    private val onTouch: (View,  MotionEvent) -> Boolean = lambda@ { view, motionEvent ->
         val shouldMove = when (motionEvent.actionMasked) {
             MotionEvent.ACTION_DOWN -> true
+            MotionEvent.ACTION_MOVE -> return@lambda false
             else -> false
         }
 
@@ -32,6 +33,6 @@ class MainActivity : AppCompatActivity() {
             rightButton -> robotConnection.right(shouldMove)
             downButton -> robotConnection.backward(shouldMove)
         }
-        true
+        false
     }
 }
