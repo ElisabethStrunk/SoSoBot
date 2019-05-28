@@ -32,7 +32,7 @@ class LedCtrl:
   def __init__(self, gpio_pin, name):
     self.gpio_pin = gpio_pin
     self.name = 'LED_' + name
-    self.on  = False
+    self.isOn  = False
     self.timer = None
     
   def on(self):
@@ -49,21 +49,23 @@ class LedCtrl:
     self.timer = threading.Timer(interval, self._blink)
     return True
 
-  def _blink(self, freq):
-    if self.on:
+  def _blink(self):
+    if self.isOn:
       self._off()
     else:
       self._on()
     self.timer.start()
 
   def _on(self):
+    print('turn on')
     GPIO.output(self.gpio_pin, 1)
-    self.on
+    self.isOn = True
     return True
 
   def _off(self):
+    print('turn off')
     GPIO.output(self.gpio_pin, 0)
-    self.off
+    self.isOn = False
     return True
 
   def _stop_timer(self):

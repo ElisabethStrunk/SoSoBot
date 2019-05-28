@@ -51,12 +51,12 @@ class MotorCtrl:
   def forward(self, velocity = 1.0):
     self._stop_timer()
     self.direct = direction.FORWARD
-    _run(velocity)
+    self._run(velocity)
 
   def backward(self, velocity = 1.0):
     self._stop_timer()
     self.direct = direction.BACKWARD
-    _run(velocity)
+    self._run(velocity)
 
   def stop(self):
     self._stop_timer()
@@ -67,7 +67,7 @@ class MotorCtrl:
   def is_on(self):
     return self.on
 
-  def _run(velocity):
+  def _run(self, velocity):
     if velocity >= 1.0:
       if self.direct == direction.FORWARD:
         self._forward()
@@ -80,7 +80,7 @@ class MotorCtrl:
       period = 1 / PWM_FREQUENCY
       self.t_on = duty_cycle * period
       self.t_off = period - self.t_on
-      _run_pwm()
+      self._run_pwm()
     
   def _run_pwm(self):
     if self.on:
@@ -92,7 +92,7 @@ class MotorCtrl:
         self._forward()
       elif self.direct == direction.BACKWARD:
         self._backward()
-      self.timer = threading.Timer(self.t_off, self._run_pwm)
+      self.timer = threading.Timer(self.t_on, self._run_pwm)
       self.timer.start()
         
   def _forward(self):
