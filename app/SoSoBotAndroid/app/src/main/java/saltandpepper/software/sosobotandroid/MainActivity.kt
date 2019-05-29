@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity() {
     private val robotConnection = RobotConnection("192.168.101.62")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +33,6 @@ class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentIntera
             MotionEvent.ACTION_UP -> robotConnection.stop(direction, this::onError)
         }
         false
-    }
-
-    override fun onFragmentInteraction(direction: Direction, power: Int) {
-        // the max power received from Fragment is 100
-        robotConnection.move(direction, power.div(100.0f))
     }
 
     private fun onError(message: String) {
