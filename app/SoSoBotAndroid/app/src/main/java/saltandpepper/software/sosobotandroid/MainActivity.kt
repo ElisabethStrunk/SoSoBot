@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity(), SliderControlFragment.OnFragmentIntera
     }
 
     override fun onFragmentInteraction(direction: Direction, power: Int) {
-        robotConnection.move(direction, power.toByte())
+        // the max power received from Fragment is 100
+        robotConnection.move(direction, power.div(100.0f))
     }
 
     private fun onError(message: String) {
