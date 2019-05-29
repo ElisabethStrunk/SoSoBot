@@ -11,6 +11,8 @@ import android.widget.SeekBar
  */
 class VerticalSeekBar(context: Context, attrs: AttributeSet) : SeekBar(context, attrs) {
 
+    private var mOnSeekBarChangeListener: OnSeekBarChangeListener? = null
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(h, w, oldh, oldw)
     }
@@ -32,15 +34,18 @@ class VerticalSeekBar(context: Context, attrs: AttributeSet) : SeekBar(context, 
             return false
         }
 
+        progress = max - (max * event.y / height).toInt()
+        setProgress(progress, true)
         when (event.action) {
-            MotionEvent.ACTION_DOWN,
-            MotionEvent.ACTION_MOVE,
-            MotionEvent.ACTION_UP -> {
-                progress = max - (max * event.y / height).toInt()
-                onSizeChanged(width, height, 0, 0)
-            }
+            MotionEvent.ACTION_DOWN -> mOnSeekBarChangeListener?.onStartTrackingTouch(this)
+            MotionEvent.ACTION_MOVE -> mOnSeekBarChangeListener?.onProgressChanged(this, progress, true)
+            MotionEvent.ACTION_UP -> mOnSeekBarChangeListener?.onStopTrackingTouch(this)
         }
+        onSizeChanged(width, height, 0, 0)
         return true
     }
 
+    override fun setOnSeekBarChangeListener(listener: OnSeekBarChangeListener) {
+        mOnSeekBarChangeListener = listener
+    }
 }
