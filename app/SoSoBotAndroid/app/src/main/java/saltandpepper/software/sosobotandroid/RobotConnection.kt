@@ -10,8 +10,11 @@ class RobotConnection(ipAddress: String) {
         FuelManager.instance.basePath = "http://$ipAddress"
     }
 
-    fun move(direction: Direction, power: Float = 1.0f, onError: ((message: String) -> Unit)? = null) {
-        request("move/$direction/$power", onError)
+    /**
+     * @param velocity A value between `0.0` (stop) and `1.0` (full speed). Defaults to `1.0`.
+     */
+    fun move(direction: Direction, velocity: Float = 1.0f, onError: ((message: String) -> Unit)? = null) {
+        request("move/$direction/$velocity", onError)
     }
 
     fun stop(direction: Direction, onError: ((message: String) -> Unit)? = null) {
