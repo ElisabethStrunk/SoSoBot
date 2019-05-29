@@ -23,9 +23,9 @@ def calculate_velocity(velocity):
 #	Classes
 #***************************************************************
 app = Flask(__name__)
-@app.route('/Move/<string:direct>/')
-@app.route('/Move/<string:direct>/<float:velocity>/')
-@app.route('/Move/<string:direct>/<float:velocity>/<int:angle>')
+@app.route('/move/<string:direct>/')
+@app.route('/move/<string:direct>/<float:velocity>/')
+@app.route('/move/<string:direct>/<float:velocity>/<int:angle>')
 def motor(direct, velocity = 1.0, angle = 0):
   velocity = calculate_velocity(velocity)
   if direct == 'right':
@@ -49,7 +49,7 @@ def motor(direct, velocity = 1.0, angle = 0):
   else:
     return 'Invalid direction'
 
-@app.route('/Horn/<string:status>', methods=['GET'])
+@app.route('/horn/<string:status>', methods=['GET'])
 def horn(status):
   if status == 'Horn1':
     horn_1.backward()
@@ -61,8 +61,8 @@ def horn(status):
     return 'Short horn sound is played back'
 
 #@app.route('/Led/<string:position>/<string:status>/', methods=['GET'])
-@app.route('/Led/<string:position>/<string:status>/')
-@app.route('/Led/<string:position>/<string:status>/<int:frequency>')
+@app.route('/led/<string:position>/<string:status>/')
+@app.route('/led/<string:position>/<string:status>/<int:frequency>')
 def led(position, status, frequency = 0):
   if position == 'right':
     if status == 'on':
