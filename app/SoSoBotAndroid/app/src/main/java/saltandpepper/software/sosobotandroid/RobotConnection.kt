@@ -2,44 +2,34 @@ package saltandpepper.software.sosobotandroid
 
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
+import java.lang.Exception
 
 class RobotConnection(ipAddress: String) {
-
-    private val forwardPath = "/forward"
-    private val backwardPath = "/backward"
-    private val leftPath = "/left"
-    private val rightPath = "/right"
-
-    private val onPath = "/on/100.0"
-    private val offPath = "/off/0.0"
 
     init {
         FuelManager.instance.basePath = "http://$ipAddress"
     }
 
-    fun forward(isOn: Boolean) {
-        request(forwardPath, isOn)
+    /**
+     * @param velocity A value between `0.0` (stop) and `1.0` (full speed). Defaults to `1.0`.
+     */
+    fun move(direction: Direction, velocity: Float = 1.0f, onError: ((message: String) -> Unit)? = null) {
+        request("move/$direction/$velocity", onError)
     }
 
-    fun backward(isOn: Boolean) {
-        request(backwardPath, isOn)
+    fun stop(direction: Direction, onError: ((message: String) -> Unit)? = null) {
+        move(direction, 0.0f, onError)
     }
 
-    fun left(isOn: Boolean) {
-        request(leftPath, isOn)
-    }
-
-    fun right(isOn: Boolean) {
-        request(rightPath, isOn)
-    }
-
-    private fun pathForBool(isOn: Boolean): String = if (isOn) onPath else offPath
-
-    private fun request(path: String, isOn: Boolean) {
-        val requestPath = path + pathForBool(isOn)
-        // TODO handle exception
-        requestPath.httpGet().responseString {
-                result ->
+    private fun request(path: String, onError: ((message: String) -> Unit)? = null) {
+        try {
+            path.httpGet().timeout(2000).responseString { result ->
+                result.component2()?.also {
+                    onError?.invoke("Status: ${it.response.statusCode} > ${it.localizedMessage}")
+                }
+            }
+        } catch (exception: Exception) {
+            onError?.invoke(exception.localizedMessage)
         }
     }
 }

@@ -1,13 +1,13 @@
 package saltandpepper.software.sosobotandroid
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
     private val robotConnection = RobotConnection("192.168.101.62")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +21,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val onTouch: (View,  MotionEvent) -> Boolean = { view, motionEvent ->
-        val shouldMove = when (motionEvent.actionMasked) {
-            MotionEvent.ACTION_DOWN -> true
-            else -> false
+        val direction = when (view) {
+            leftButton -> Direction.LEFT
+            upButton -> Direction.FORWARD
+            rightButton -> Direction.RIGHT
+            else -> Direction.BACKWARD
         }
 
-        when (view) {
-            leftButton -> robotConnection.left(shouldMove)
-            upButton -> robotConnection.forward(shouldMove)
-            rightButton -> robotConnection.right(shouldMove)
-            downButton -> robotConnection.backward(shouldMove)
+        when (motionEvent.actionMasked) {
+            MotionEvent.ACTION_DOWN -> robotConnection.move(direction, onError = this::onError)
+            MotionEvent.ACTION_UP -> robotConnection.stop(direction, this::onError)
         }
-        true
+        false
+    }
+
+    private fun onError(message: String) {
+        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show()
     }
 }
