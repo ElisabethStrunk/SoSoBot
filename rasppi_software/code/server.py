@@ -47,18 +47,18 @@ def motor(direct, velocity = 1.0, angle = 0):
     motor_right.stop()
     return 'Motors stopped'
   else:
-    return 'Invalid direction'
+    return 'ERROR: Invalid direction'
 
 @app.route('/horn/<string:status>', methods=['GET'])
 def horn(status):
-  if status == 'Horn1':
+  if status == '1':
     horn_1.backward()
-    return 'Short horn sound is played back'
-  elif status == 'Horn2':
+    return 'Sound 1 is playing'
+  elif status == '2':
     horn_1.stop()
-    return 'Playback of short horn sound is stopped'
+    return 'Sound 2 is playing'
   else:
-    return 'Short horn sound is played back'
+    return 'ERROR: Invalid sound-option. Please choose another one'
 
 #@app.route('/Led/<string:position>/<string:status>/', methods=['GET'])
 @app.route('/led/<string:position>/<string:status>/')
@@ -83,7 +83,7 @@ def led(position, status, frequency = 0):
     else:
        return 'Parameter ON/OFF is either missing or not valid'
   else:
-     return 'Position not found'
+     return 'ERROR: Invalid LED'
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=80, debug=True)
