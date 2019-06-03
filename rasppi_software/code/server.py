@@ -11,13 +11,6 @@ from horn_ctrl import horn_1
 #***************************************************************
 #	Global-Functions
 #***************************************************************
-def calculate_velocity(velocity):
-  calc_velocity = velocity
-  if velocity <= 0.0:
-    calc_velocity = 0.0
-  elif velocity >= 1.0:
-    calc_velocity = 1.0
-  return calc_velocity
 
 #***************************************************************
 #	Classes
@@ -25,7 +18,6 @@ def calculate_velocity(velocity):
 app = Flask(__name__)
 @app.route('/move/<string:direct>/')
 def motor(direct):
-  velocity = calculate_velocity(velocity)
   if direct == 'right':
     motor_right.forward()
     return 'RIGHT movement started'
