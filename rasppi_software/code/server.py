@@ -24,23 +24,21 @@ def calculate_velocity(velocity):
 #***************************************************************
 app = Flask(__name__)
 @app.route('/move/<string:direct>/')
-@app.route('/move/<string:direct>/<float:velocity>/')
-@app.route('/move/<string:direct>/<float:velocity>/<int:angle>')
-def motor(direct, velocity = 1.0, angle = 0):
+def motor(direct):
   velocity = calculate_velocity(velocity)
   if direct == 'right':
-    motor_right.forward(velocity)
+    motor_right.forward()
     return 'RIGHT movement started'
   elif direct == 'left':
-    motor_left.forward(velocity)
+    motor_left.forward()
     return 'LEFT movement started'
   elif direct == 'forward':
-    motor_left.forward(velocity)
-    motor_right.forward(velocity)
+    motor_left.forward()
+    motor_right.forward()
     return 'FORWARD movement started'
   elif direct == 'backward':
-    motor_left.backward(velocity)
-    motor_right.backward(velocity)
+    motor_left.backward()
+    motor_right.backward()
     return 'BACKWARD movement started'
   elif direct == 'stop':
     motor_left.stop()
