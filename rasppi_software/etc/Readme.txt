@@ -1,0 +1,1 @@
+File "rc.local" has to be put into folder "/etc".
