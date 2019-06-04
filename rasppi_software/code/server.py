@@ -29,10 +29,10 @@ app = Flask(__name__)
 def motor(direct, velocity = 1.0, angle = 0):
   velocity = calculate_velocity(velocity)
   if direct == 'right':
-    motor_right.forward(velocity)
+    motor_left.forward(velocity)
     return 'RIGHT movement started'
   elif direct == 'left':
-    motor_left.forward(velocity)
+    motor_right.forward(velocity)
     return 'LEFT movement started'
   elif direct == 'forward':
     motor_left.forward(velocity)
