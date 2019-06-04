@@ -33,11 +33,11 @@ def motor(direct,  velocity = 1.0):
     return motor_right.forward(velocity)
   elif direct == 'forward':
     ret = motor_left.forward(velocity)
-    ret = ret + motor_right.forward(velocity)
+    ret = ret + '\n' + motor_right.forward(velocity)
     return ret 
   elif direct == 'backward':
     ret = motor_left.backward(velocity)
-    ret = ret + motor_right.backward(velocity)
+    ret = ret + '\n' +  motor_right.backward(velocity)
     return ret 
   else:
     return 'ERROR: Invalid direction'
