@@ -11,10 +11,10 @@ import threading
 #***************************************************************
 
 # Constants for GPIO-Pins
-MOTOR_RIGHT_FORWARD = 23
-MOTOR_RIGHT_BACKWARD = 24
 MOTOR_LEFT_FORWARD = 17
 MOTOR_LEFT_BACKWARD = 27
+# Your code for right motor-pins
+
 
 #***************************************************************
 #	Class definition
@@ -45,16 +45,7 @@ class MotorCtrl:
       ret = ret + self._stop()
     return ret
 
-  def backward(self, velocity):
-    ret = self.name + ': '
-    if velocity > 0.0:
-      GPIO.output(self.pin_forward, 0)
-      GPIO.output(self.pin_backward, 1)
-      self.on  = True
-      ret = ret + 'Started backward'
-    else:
-       ret = ret + self._stop()
-    return ret
+  # Your code for backwards-function
 
   def _stop(self):
     GPIO.output(self.pin_forward, 0)
@@ -72,10 +63,8 @@ class MotorCtrl:
 #***************************************************************
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
-GPIO.setup(MOTOR_RIGHT_BACKWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
+# Your code for pin setup of the gpios for the right motor
 
-motor_right = MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_RIGHT_BACKWARD, 'Right')
 motor_left  = MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
