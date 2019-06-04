@@ -12,11 +12,7 @@ We follow [REST](https://stackoverflow.com/questions/671118/what-exactly-is-rest
 The following paths are defined for the HTTP `GET` method:
 
 - Movement
-	- `http://yourBaseUri/move/<direction: string = {left|forward|right|backward}>/<velocity: float = {0.0 ... 1.0}>`
-- Horn
-	- `http://yourBaseUri/horn/<which: string = {1|2}>`
-- Led
-	- `http://yourBaseUri/led/<side: string = {left|right}>/<status: string = {on|off}/<frequency: int = {0 ... 10}>`
+	- `http://yourBaseUri/move/<direction: string = {right}>/<velocity: float = {0.0 ... 1.0}>`
 
 ## Mobile App
 
