@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:so_so_bot/dialogs.dart';
 import 'MotorCommunication.dart';
 
 void main() => runApp(MyApp());
@@ -17,8 +18,7 @@ class MyApp extends StatelessWidget {
         // changing the primarySwatch below to Colors.green and then invoke
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        // The application is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'SoSoBot Controller'),
@@ -87,11 +87,25 @@ class _MyHomePageState extends State<MyHomePage> {
     onTapUpBackward();
     onTapUpForward();
   }
+  
+  void onPopupMenuSelected(int index) {
+    if (index == 0) {
+      showDialog(context: context, barrierDismissible: false, builder: (context) {
+        return IpAddressDialog(
+            onOkPressed: (ip) {
+              motorCommunication.ipAddress = ip;
+              Navigator.pop(context);
+            },
+            onCancel: () {
+              Navigator.pop(context);
+            });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
+    // This method is rerun every time setState is called.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
@@ -101,63 +115,63 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, right:8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                onTapDown: onTapDownForward,
-                onTapCancel: onTapCanceled,
-                child: RaisedButton(
-                  child: Text("Forward"),
-                  onPressed: onTapUpForward,
-                ),
-              ),
-              Row(
-                // Row is a widget that displays its children in a horizontal array.
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    // Expanded is a widget that expands a child of a Row, Column, or
-                    // Flex so that the child fills the available space.
-                    child: GestureDetector(
-                      onTapDown: onTapDownLeft,
-                      onTapCancel: onTapCanceled,
-                      child: RaisedButton(
-                        child: Text("Left"),
-                        onPressed: onTapUpLeft,
-                      ),
-                    ),
-                    flex: 2,
-                  ),
-                  Spacer(flex: 1,),
-                  Expanded(
-                    child: GestureDetector(
-                      onTapDown: onTapDownRight,
-                      child: RaisedButton(
-                        child: Text("Right"),
-                        onPressed: onTapUpRight,
-                      ),
-                    ),
-                    flex: 2,
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTapDown: onTapDownBackward,
-                onTapCancel: onTapCanceled,
-                child: RaisedButton(
-                  child: Text("Backward"),
-                  onPressed: onTapUpBackward,
-                ),
+        actions: <Widget>[
+          PopupMenuButton<int>(
+            offset: Offset(0, 48),
+            onSelected: onPopupMenuSelected,
+            itemBuilder: (context) => <PopupMenuEntry<int>>[
+              const PopupMenuItem<int>(
+                value: 0,
+                child: Text("Set IP adress"),
               ),
             ],
-          ),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8, right:8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            GestureDetector(
+              onTapDown: onTapDownForward,
+              onTapCancel: onTapCanceled,
+              child: RaisedButton(
+                child: Icon(Icons.keyboard_arrow_up),
+                onPressed: onTapUpForward,
+              ),
+            ),
+            Row(
+              // Row is a widget that displays its children in a horizontal array.
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                GestureDetector(
+                  onTapDown: onTapDownLeft,
+                  onTapCancel: onTapCanceled,
+                  child: RaisedButton(
+                    child: Icon(Icons.keyboard_arrow_left),
+                    onPressed: onTapUpLeft,
+                  ),
+                ),
+                GestureDetector(
+                  onTapDown: onTapDownRight,
+                  onTapCancel: onTapCanceled,
+                  child: RaisedButton(
+                    child: Icon(Icons.keyboard_arrow_right),
+                    onPressed: onTapUpRight,
+                  ),
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTapDown: onTapDownBackward,
+              onTapCancel: onTapCanceled,
+              child: RaisedButton(
+                child: Icon(Icons.keyboard_arrow_down),
+                onPressed: onTapUpBackward,
+              ),
+            ),
+          ],
         ),
       ),
     );
