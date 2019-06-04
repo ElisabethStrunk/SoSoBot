@@ -14,9 +14,9 @@ The following paths are defined for the HTTP `GET` method:
 - Movement
 	- `http://yourBaseUri/move/<direction: string = {left|forward|right|backward}>/<velocity: float = {0.0 ... 1.0}>`
 - Horn
-	- `http://baseuri/horn/<which: string = {horn1|horn2}>`
+	- `http://yourBaseUri/horn/<which: string = {1|2}>`
 - Led
-	- `http://baseuri/led/<side: string = {left|right}>/<status: string = {on|off}/<frequency: int = {0 ... 10}>`
+	- `http://yourBaseUri/led/<side: string = {left|right}>/<status: string = {on|off}/<frequency: int = {0 ... 10}>`
 
 ## Mobile App
 
