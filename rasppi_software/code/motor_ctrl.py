@@ -11,11 +11,10 @@ import threading
 #***************************************************************
 
 # Constants for GPIO-Pins
-MOTOR_RIGHT_FORWARD = 17
-MOTOR_RIGHT_BACKWARD = 27
-MOTOR_LEFT_FORWARD = 23
-MOTOR_LEFT_BACKWARD = 24
-
+MOTOR_RIGHT_FORWARD = 23
+MOTOR_RIGHT_BACKWARD = 24
+MOTOR_LEFT_FORWARD = 17
+MOTOR_LEFT_BACKWARD = 27
 
 #***************************************************************
 #	Class definition
@@ -35,20 +34,33 @@ class MotorCtrl:
     self.name = 'Motor_' + name
     self.on  = False
 
-  def forward(self):
-    GPIO.output(self.pin_backward, 0)
-    GPIO.output(self.pin_forward, 1)
-    self.on  = True
+  def forward(self, velocity):
+    ret = self.name + ': '
+    if velocity > 0.0:
+      GPIO.output(self.pin_backward, 0)
+      GPIO.output(self.pin_forward, 1)
+      self.on  = True
+      ret = ret + 'Started forward'
+    else:
+      ret = ret + self._stop()
+    return ret
 
-  def backward(self):
-    GPIO.output(self.pin_forward, 0)
-    GPIO.output(self.pin_backward, 1)
-    self.on  = True
+  def backward(self, velocity):
+    ret = self.name + ': '
+    if velocity > 0.0:
+      GPIO.output(self.pin_forward, 0)
+      GPIO.output(self.pin_backward, 1)
+      self.on  = True
+      ret = ret + 'Started backward'
+    else:
+       ret = ret + self._stop()
+    return ret
 
-  def stop(self):
+  def _stop(self):
     GPIO.output(self.pin_forward, 0)
     GPIO.output(self.pin_backward, 0)
     self.on  = False 
+    return 'Stopped'
 
   # Indicates if the motor is running
   def is_on(self):

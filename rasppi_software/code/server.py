@@ -11,31 +11,34 @@ from horn_ctrl import horn_1
 #***************************************************************
 #	Global-Functions
 #***************************************************************
+def calculate_velocity(velocity):
+  calc_velocity = velocity
+  if velocity <= 0.0:
+    calc_velocity = 0.0
+  elif velocity >= 1.0:
+    calc_velocity = 1.0
+  return calc_velocity
 
 #***************************************************************
 #	Classes
 #***************************************************************
 app = Flask(__name__)
 @app.route('/move/<string:direct>/')
-def motor(direct):
+@app.route('/move/<string:direct>/<float:velocity>/')
+def motor(direct,  velocity = 1.0):
+  velocity = calculate_velocity(velocity)
   if direct == 'right':
-    motor_right.forward()
-    return 'RIGHT movement started'
+    return motor_left.forward(velocity)
   elif direct == 'left':
-    motor_left.forward()
-    return 'LEFT movement started'
+    return motor_right.forward(velocity)
   elif direct == 'forward':
-    motor_left.forward()
-    motor_right.forward()
-    return 'FORWARD movement started'
+    ret = motor_left.forward(velocity)
+    ret = ret + motor_right.forward(velocity)
+    return ret 
   elif direct == 'backward':
-    motor_left.backward()
-    motor_right.backward()
-    return 'BACKWARD movement started'
-  elif direct == 'stop':
-    motor_left.stop()
-    motor_right.stop()
-    return 'Motors stopped'
+    ret = motor_left.backward(velocity)
+    ret = ret + motor_right.backward(velocity)
+    return ret 
   else:
     return 'ERROR: Invalid direction'
 
