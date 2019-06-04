@@ -6,6 +6,9 @@ import java.lang.Exception
 
 class RobotConnection(ipAddress: String) {
 
+    private val mVelocityFull = 1.0f
+    private val mVelocityStop = 0.0f
+
     init {
         FuelManager.instance.basePath = "http://$ipAddress"
     }
@@ -13,12 +16,12 @@ class RobotConnection(ipAddress: String) {
     /**
      * @param velocity A value between `0.0` (stop) and `1.0` (full speed). Defaults to `1.0`.
      */
-    fun move(direction: Direction, velocity: Float = 1.0f, onError: ((message: String) -> Unit)? = null) {
+    fun move(direction: Direction, velocity: Float = mVelocityFull, onError: ((message: String) -> Unit)? = null) {
         request("move/$direction/$velocity", onError)
     }
 
     fun stop(direction: Direction, onError: ((message: String) -> Unit)? = null) {
-        move(direction, 0.0f, onError)
+        move(direction, mVelocityStop, onError)
     }
 
     private fun request(path: String, onError: ((message: String) -> Unit)? = null) {
