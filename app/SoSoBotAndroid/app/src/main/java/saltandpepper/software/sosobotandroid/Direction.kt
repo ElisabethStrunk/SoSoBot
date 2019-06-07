@@ -1,14 +1,13 @@
 package saltandpepper.software.sosobotandroid
 
 enum class Direction {
-    FORWARD, BACKWARD, LEFT, RIGHT;
+    // TODO Add other directions
+    BACKWARD, RIGHT;
 
     override fun toString(): String{
         return when (this) {
-            FORWARD -> "forward"
-            BACKWARD -> "backward"
-            LEFT -> "left"
             RIGHT -> "right"
+            else -> TODO("Add strings for other directions")
         }
     }
 }

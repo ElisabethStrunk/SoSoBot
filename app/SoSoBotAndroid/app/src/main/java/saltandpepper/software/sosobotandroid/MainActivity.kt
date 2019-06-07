@@ -8,34 +8,43 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    /**
+     * Provides a connection to the robot to move or stop it.
+     */
     private val robotConnection = RobotConnection("192.168.101.62")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        leftButton.setOnTouchListener(onTouch)
-        upButton.setOnTouchListener(onTouch)
         rightButton.setOnTouchListener(onTouch)
-        downButton.setOnTouchListener(onTouch)
+        // TODO Register OnTouchListener for other buttons
     }
 
     private val onTouch: (View,  MotionEvent) -> Boolean = { view, motionEvent ->
         val direction = when (view) {
-            leftButton -> Direction.LEFT
-            upButton -> Direction.FORWARD
+            // TODO Handle other buttons
             rightButton -> Direction.RIGHT
             else -> Direction.BACKWARD
         }
 
         when (motionEvent.actionMasked) {
-            MotionEvent.ACTION_DOWN -> robotConnection.move(direction, onError = this::onError)
-            MotionEvent.ACTION_UP -> robotConnection.stop(direction, this::onError)
+            MotionEvent.ACTION_DOWN -> {
+                Toast.makeText(this, "Pressed ${resources.getResourceEntryName(view.id)}", Toast.LENGTH_SHORT).show()
+                // TODO Call the robot to start a movement in the desired direction
+            }
+            MotionEvent.ACTION_UP -> {
+                Toast.makeText(this, "Released ${resources.getResourceEntryName(view.id)}", Toast.LENGTH_SHORT).show()
+                // TODO Call the robot to stop the movement
+            }
         }
         false
     }
 
+    /**
+     * Displays a toast message.
+     */
     private fun onError(message: String) {
-        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
