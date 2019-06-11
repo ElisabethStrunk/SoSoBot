@@ -9,30 +9,12 @@
 
     <ImageButton
             android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:id="@+id/leftButton"
-            app:layout_constraintEnd_toStartOf="@+id/one_third_guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintBottom_toTopOf="@+id/downButton"/>
-
-    <ImageButton
-            android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:id="@+id/rightButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/two_third_guideline"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toTopOf="@+id/downButton"/>
-    <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="0dp" app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
-            android:id="@+id/upButton"
-            app:layout_constraintBottom_toTopOf="@+id/rightButton"
-            app:layout_constraintEnd_toStartOf="@+id/two_third_guideline"
-            app:layout_constraintStart_toStartOf="@+id/one_third_guideline"
-            app:layout_constraintDimensionRatio="1:1"/>
     <ImageButton
             android:layout_width="0dp"
             android:layout_height="0dp" app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
