@@ -7,18 +7,6 @@ from motor_ctrl import motor_left, motor_right
 
 
 # ***************************************************************
-# Global-Functions
-# ***************************************************************
-def calculate_velocity(velocity):
-    calc_velocity = velocity
-    if velocity <= 0.0:
-        calc_velocity = 0.0
-    elif velocity >= 1.0:
-        calc_velocity = 1.0
-    return calc_velocity
-
-
-# ***************************************************************
 # Classes
 # ***************************************************************
 app = Flask(__name__)
@@ -27,21 +15,15 @@ app = Flask(__name__)
 @app.route('/move/<string:direct>/')
 @app.route('/move/<string:direct>/<float:velocity>/')
 def motor(direct,  velocity=1.0):
-    velocity = calculate_velocity(velocity)
-    if direct == 'right':
-        return motor_left.forward(velocity)
-    elif direct == 'left':
-        return motor_right.forward(velocity)
-    elif direct == 'forward':
-        ret = motor_left.forward(velocity)
-        ret = ret + '\n' + motor_right.forward(velocity)
-        return ret
-    elif direct == 'backward':
-        ret = motor_left.backward(velocity)
-        ret = ret + '\n' + motor_right.backward(velocity)
-        return ret
+    if direct == 'forward':
+        motor_left.forward(velocity)
+        motor_right.forward(velocity)
+        return "Driving forward!", 200
+
+    # your code her for moving the car backward, left, right and stop
+
     else:
-        return 'ERROR: Invalid direction'
+        return 'ERROR: Invalid direction', 400
 
 
 if __name__ == '__main__':

@@ -10,8 +10,10 @@ import RPi.GPIO as GPIO
 # Constants for GPIO-Pins
 MOTOR_RIGHT_FORWARD = 23
 MOTOR_RIGHT_BACKWARD = 24
-MOTOR_LEFT_FORWARD = 17
-MOTOR_LEFT_BACKWARD = 27
+
+# your found GPIO pin numbers for the left motor:
+# MOTOR_LEFT_FORWARD = ??
+# MOTOR_LEFT_BACKWARD = ??
 
 
 # ***************************************************************
@@ -42,28 +44,23 @@ class MotorCtrl:
             self.on = True
             ret = ret + 'Started forward'
         else:
-            ret = ret + self._stop()
+            ret = ret + self.stop()
         return ret
 
     def backward(self, velocity):
-        ret = self.name + ': '
-        if velocity > 0.0:
-            GPIO.output(self.pin_forward, 0)
-            GPIO.output(self.pin_backward, 1)
-            self.on = True
-            ret = ret + 'Started backward'
-        else:
-            ret = ret + self._stop()
-        return ret
 
-    def _stop(self):
-        GPIO.output(self.pin_forward, 0)
-        GPIO.output(self.pin_backward, 0)
-        self.on = False
-        return 'Stopped'
+        # your code here
 
-    # Indicates if the motor is running
+        return "Your return message here"
+
+    def stop(self):
+
+        # your code here
+
+        return "Your return message here"
+
     def is_on(self):
+        # Indicates if the motor is running
         return self.on
         
     
@@ -74,8 +71,10 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(MOTOR_RIGHT_FORWARD, GPIO.OUT)
 GPIO.setup(MOTOR_RIGHT_BACKWARD, GPIO.OUT)
-GPIO.setup(MOTOR_LEFT_FORWARD, GPIO.OUT)
-GPIO.setup(MOTOR_LEFT_BACKWARD, GPIO.OUT)
+
+# your code here for setting up the GPIOs of the left motor
+
 
 motor_right = MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_RIGHT_BACKWARD, 'Right')
-motor_left = MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
+
+# your code for initializing the left motor here
