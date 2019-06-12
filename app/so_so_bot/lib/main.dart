@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:so_so_bot/dialogs.dart';
 import 'MotorCommunication.dart';
+import 'direction.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,45 +49,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // TODO widget for IP address
   MotorCommunication motorCommunication = new MotorCommunication("192.168.101.62");
-
-  void onTapDownLeft(TapDownDetails details) {
-    motorCommunication.left(true);
-  }
-
-  void onTapUpLeft() {
-    motorCommunication.left(false);
-  }
-
-  void onTapDownRight(TapDownDetails details) {
-    motorCommunication.right(true);
-  }
-  
-  void onTapUpRight() {
-    motorCommunication.right(false);
-  }
-
-  void onTapDownForward(TapDownDetails details) {
-    motorCommunication.forward(true);
-  }
-
-  void onTapUpForward() {
-    motorCommunication.forward(false);
-  }
-
-  void onTapDownBackward(TapDownDetails details) {
-    motorCommunication.backward(true);
-  }
-
-  void onTapUpBackward() {
-    motorCommunication.backward(false);
-  }
-
-  void onTapCanceled() {
-    onTapUpLeft();
-    onTapUpRight();
-    onTapUpBackward();
-    onTapUpForward();
-  }
   
   void onPopupMenuSelected(int index) {
     if (index == 0) {
@@ -106,14 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         actions: <Widget>[
           PopupMenuButton<int>(
@@ -133,42 +89,45 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            // Forward
             GestureDetector(
-              onTapDown: onTapDownForward,
-              onTapCancel: onTapCanceled,
+              onTapDown: (_) => motorCommunication.move(Direction.FORWARD),
+              onTapCancel: () => motorCommunication.stop(Direction.FORWARD),
               child: RaisedButton(
                 child: Icon(Icons.keyboard_arrow_up),
-                onPressed: onTapUpForward,
+                onPressed: () => motorCommunication.stop(Direction.FORWARD),
               ),
             ),
             Row(
-              // Row is a widget that displays its children in a horizontal array.
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                // Left
                 GestureDetector(
-                  onTapDown: onTapDownLeft,
-                  onTapCancel: onTapCanceled,
+                  onTapDown: (_) => motorCommunication.move(Direction.LEFT),
+                  onTapCancel: () => motorCommunication.stop(Direction.LEFT),
                   child: RaisedButton(
                     child: Icon(Icons.keyboard_arrow_left),
-                    onPressed: onTapUpLeft,
+                    onPressed: () => motorCommunication.stop(Direction.LEFT),
                   ),
                 ),
+                // Right
                 GestureDetector(
-                  onTapDown: onTapDownRight,
-                  onTapCancel: onTapCanceled,
+                  onTapDown: (_) => motorCommunication.move(Direction.RIGHT),
+                  onTapCancel: () => motorCommunication.stop(Direction.RIGHT),
                   child: RaisedButton(
                     child: Icon(Icons.keyboard_arrow_right),
-                    onPressed: onTapUpRight,
+                    onPressed: () => motorCommunication.stop(Direction.RIGHT),
                   ),
                 ),
               ],
             ),
+            // Backward
             GestureDetector(
-              onTapDown: onTapDownBackward,
-              onTapCancel: onTapCanceled,
+              onTapDown: (_) => motorCommunication.move(Direction.BACKWARD),
+              onTapCancel: () => motorCommunication.stop(Direction.BACKWARD),
               child: RaisedButton(
                 child: Icon(Icons.keyboard_arrow_down),
-                onPressed: onTapUpBackward,
+                onPressed: () => motorCommunication.stop(Direction.BACKWARD),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'direction.dart';
 
 class MotorCommunication {
 
@@ -8,28 +9,21 @@ class MotorCommunication {
 
   MotorCommunication(this.ipAddress);
 
-  void forward(bool on) {
-    request(ServerPaths.forwardPath, on);
+  void move(Direction direction, {double velocity = 1.0}) {
+    request(direction, velocity);
   }
 
-  void backward(bool on) {
-    request(ServerPaths.backwardPath, on);
+  void stop(Direction direction) {
+    request(direction, 0.0);
   }
 
-  void left(bool on) {
-    request(ServerPaths.leftPath, on);
+  Uri buildUri(Direction direction, double velocity) {
+    return Uri.parse("http://$ipAddress/move/$direction/$velocity");
   }
 
-  void right(bool on) {
-    request(ServerPaths.rightPath, on);
-  }
-
-  Uri buildUri(String path, bool on) {
-    return Uri.parse("http://" + ipAddress + path + "/" + (on ? "on" : "off"));
-  }
-
-  void request(String path, bool on) {
-    client.getUrl(buildUri(path, on)).then((request) {
+  void request(Direction direction, double velocity) { // todo on error lambda
+    var uri = buildUri(direction, velocity);
+    client.getUrl(uri).then((request) {
       print(request);
       return request.close();
     }).then((response) {
@@ -37,11 +31,4 @@ class MotorCommunication {
       // TODO handle response
     });
   }
-}
-
-class ServerPaths {
-  static const String forwardPath = "/forward";
-  static const String backwardPath = "/backward";
-  static const String leftPath = "/left";
-  static const String rightPath = "/right";
 }
