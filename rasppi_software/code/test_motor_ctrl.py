@@ -10,32 +10,24 @@ from motor_ctrl import motor_left, motor_right
 # ***************************************************************
 # Global-Functions
 # ***************************************************************
-try:
-    while True:
-        print('Start Test:')
-        print('Test: Turn on both motors forward with 100%')
-        motor_right.forward()
-        motor_left.forward()
-        time.sleep(5)
-        print('Test: Stops both motors')
-        motor_right.stop()
-        motor_left.stop()
-        time.sleep(5)
-        print('Test: Turn on both motors backward with 100%')
-        motor_right.backward()
-        motor_left.backward()
-        time.sleep(5)
-        print('Test: Stops both motors')
-        motor_right.stop()
-        motor_left.stop()
-        time.sleep(5)
-        print('Test: Starts the motors forward with 50%')
-        motor_right.forward(0.5)
-        motor_left.forward(0.5)
-        break
-          
-except KeyboardInterrupt:
-    GPIO.cleanup()
-    print('Bye')
-    sys.exit()
+print('Start Test:')
+print('Test: Turn on both motors forward')
+motor_right.forward(1)
+motor_left.forward(1)
+time.sleep(1)
+print('Test: Stops both motors')
+motor_right.stop()
+motor_left.stop()
+time.sleep(0.5)
+print('Test: Turn on both motors backward')
+motor_right.backward(1)
+motor_left.backward(1)
+time.sleep(1)
+print('Test: Stops both motors')
+motor_right.stop()
+motor_left.stop()
+time.sleep(0.5)
 
+GPIO.cleanup()
+print('Bye')
+sys.exit()
