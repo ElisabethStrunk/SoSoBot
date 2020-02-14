@@ -81,3 +81,4 @@ GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
 # Your code for pin setup of the gpios for the right motor
 
 motor_left  = MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
+motor_right = MotorCtrl(MOTOR_RIGHT_FORWARD, MOTOR_RIGHT_BACKWARD, 'Right')
