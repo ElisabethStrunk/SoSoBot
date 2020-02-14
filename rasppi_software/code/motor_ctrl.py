@@ -15,7 +15,7 @@ MOTOR_LEFT_FORWARD  = 17
 MOTOR_LEFT_BACKWARD = 27
 MOTOR_RIGHT_FORWARD = 23
 MOTOR_RIGHT_BACKWARD = 24
-# Your code for right motor-pins
+
 
 
 #***************************************************************
@@ -43,6 +43,17 @@ class MotorCtrl:
       GPIO.output(self.pin_forward, 1)
       self.on  = True
       ret = ret + 'Started forward'
+    else:
+      ret = ret + self._stop()
+    return ret
+
+  def backward(self, velocity):
+    ret = self.name + ': '
+    if velocity > 0.0:
+      GPIO.output(self.pin_backward, 1)
+      GPIO.output(self.pin_forward, 0)
+      self.on  = True
+      ret = ret + 'Started backward'
     else:
       ret = ret + self._stop()
     return ret
