@@ -14,7 +14,8 @@ app = Flask(__name__)
 @app.route('/move/<string:direct>/<float:velocity>/')
 def motor(direct,  velocity = 1.0):
   if direct == 'right':
-    return motor_left.forward(velocity)
+    motor_left.forward(velocity)
+    return 'LEFT movement started'
   # Your code for left, forward, backward direction
   else:
     return 'ERROR: Invalid direction'
