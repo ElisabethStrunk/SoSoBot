@@ -11,8 +11,10 @@ import threading
 #***************************************************************
 
 # Constants for GPIO-Pins
-MOTOR_LEFT_FORWARD = 17
+MOTOR_LEFT_FORWARD  = 17
 MOTOR_LEFT_BACKWARD = 27
+MOTOR_RIGHT_FORWARD = 23
+MOTOR_RIGHT_BACKWARD = 24
 # Your code for right motor-pins
 
 
