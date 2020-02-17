@@ -78,6 +78,8 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(MOTOR_LEFT_FORWARD,GPIO.OUT)
 GPIO.setup(MOTOR_LEFT_BACKWARD,GPIO.OUT)
+GPIO.setup(MOTOR_RIGHT_FORWARD,GPIO.OUT)
+GPIO.setup(MOTOR_RIGHT_BACKWARD,GPIO.OUT)
 # Your code for pin setup of the gpios for the right motor
 
 motor_left  = MotorCtrl(MOTOR_LEFT_FORWARD, MOTOR_LEFT_BACKWARD, 'Left')
