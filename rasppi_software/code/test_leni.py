@@ -11,11 +11,16 @@ try:
   print('left backward')
   motor_left.backward(1.0)
   time.sleep(5.0)
+  motor_left._stop()
+  time.sleep(1.0)
   print('right forward')
   motor_right.forward(1.0)
   time.sleep(5.0)
   print('right backward')
   motor_right.backward(1.0)
+  time.sleep(5.0)
+  motor_left._stop()
+  time.sleep(1.0)
   break 
   
 
